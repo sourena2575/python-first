@@ -10,16 +10,28 @@
   <body>
     <header class="wrapper">
       <h1>
-        <a href="{% url 'articles:list'%}">Logo</a>
+        <a href="{% url 'home'%}">Logo</a>
       </h1>
       <nav>
         <ul>
+          {% if user.is_authenticated %}
           <li>
             <form class="logout-link" action="{% url 'accounts:logout'%}" method="POST">
               {%csrf_token%}
             <button type="submit">Logout</button>
             </form>
           </li>
+          <li>
+            <a class="highlight" href="{% url 'articles:create'%}">Create Article</a>
+          </li>
+          {%else%}
+          <li>
+            <a href="{% url 'accounts:login'%}">Login</a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:signup'%}">Signup</a>
+          </li>
+          {%endif%}
         </ul>
       </header>
       <div class="wrapper">
